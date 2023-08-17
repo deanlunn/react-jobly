@@ -18,10 +18,10 @@ class JoblyApi {
     console.debug("API Call:", endpoint, data, method);
 
     const url = `${BASE_URL}/${endpoint}`;
-    const headers = { Authorization: `Bearer ${JoblyApi.token}` };
-    const params = (method === "get")
-        ? data
-        : {};
+    const headers = JoblyApi.token
+      ? { Authorization: `Bearer ${JoblyApi.token}` }
+      : {};
+    const params = method === "get" ? data : {};
 
     try {
       return (await axios({ url, method, data, params, headers })).data;
@@ -89,6 +89,5 @@ class JoblyApi {
     return res.user;
   }
 }
-
 
 export default JoblyApi;
